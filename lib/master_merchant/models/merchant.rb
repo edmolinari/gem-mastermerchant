@@ -17,7 +17,7 @@ class MasterMerchant::Merchant < MasterMerchant::Base
     _typhoeus_options = {
       :headers => {'content-type' => 'application/json'},
     }.merge(config.typhoeus_options)
-    puts _typhoeus_options.inspect
+    puts "++++++++++++"+_typhoeus_options.inspect
     Typhoeus::Request.get process_url(url, options), _typhoeus_options
   end
 
