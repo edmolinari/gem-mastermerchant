@@ -14,7 +14,12 @@ class MasterMerchant::Merchant < MasterMerchant::Base
   end
 
   def self.member_url(options={})
-    url = ":site_url/merchants/#{options[:id]}.json"
+    if options[:locate_identity]
+      uri = '/locate_identity'
+    else
+      uri = ''
+    end
+    url = ":site_url/merchants/#{options[:id]}#{uri}.json"
     process_url(url, options)
   end
 
@@ -29,6 +34,7 @@ class MasterMerchant::Merchant < MasterMerchant::Base
   end
 
   def locate_identity(options={})
+    get(options.merge(:locate_identity => true))
   end
 
   def self.model_name
