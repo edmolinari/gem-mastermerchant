@@ -2,7 +2,12 @@ class MasterMerchant::Merchant < MasterMerchant::Base
   include MasterMerchant::Connection
 
   def self.collection_url(options={})
-    url = ":site_url/merchants.json"
+    if options[:from_data_sources]
+      uri = 'merchants/:from_data_sources'
+    else
+      uri = 'merchants'
+    end
+    url = ":site_url/#{uri}.json"
     process_url(url, options)
   end
 
@@ -11,24 +16,16 @@ class MasterMerchant::Merchant < MasterMerchant::Base
     process_url(url, options)
   end
 
-  
+  def from_data_sources(options={})
+    raise "You must supply :from_data_sources to this query method." unless options[:sources]
+    response = index(options)
+    #process_response(MasterMerchant::Stat, 'stats', response)
+  end
 
-  def grant_user(options={})
-    url = ":site_url/merchants/grant_user.json"
-    set_config_from_options(options)
-    _typhoeus_options = {
-      :headers => {'content-type' => 'application/json'},
-    }.merge(config.typhoeus_options)
-    Typhoeus::Request.get process_url(url, options), _typhoeus_options
+  def check_credentials(options={})
   end
 
   def locate_identity(options={})
-    url = ":site_url/merchants/#{options[:id]}/locate_identity.json"
-    set_config_from_options(options)
-    _typhoeus_options = {
-      :headers => {'content-type' => 'application/json'},
-    }.merge(config.typhoeus_options)
-    Typhoeus::Request.get process_url(url, options), _typhoeus_options
   end
 
   def self.model_name

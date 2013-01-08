@@ -2,17 +2,6 @@ module MasterMerchant::Connection
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def from_data_sources(options={})
-      url = ":site_url/merchants/from_data_sources.json"
-      set_config_from_options(options)
-      _typhoeus_options = {
-        :headers => {'content-type' => 'application/json'},
-      }.merge(config.typhoeus_options)
-      puts "++++++++++++"+_typhoeus_options.inspect
-      Typhoeus::Request.get process_url(url, options), _typhoeus_options
-    end
-    
-    
     def index(options={})
       set_config_from_options(options)
       _typhoeus_options = {
