@@ -2,8 +2,8 @@ class MasterMerchant::Merchant < MasterMerchant::Base
   include MasterMerchant::Connection
 
   def self.collection_url(options={})
-    if options[:from_data_sources]
-      uri = 'merchants/:from_data_sources'
+    if options[:sources]
+      uri = 'merchants/from_data_sources'
     else
       uri = 'merchants'
     end
@@ -17,7 +17,7 @@ class MasterMerchant::Merchant < MasterMerchant::Base
   end
 
   def from_data_sources(options={})
-    raise "You must supply :from_data_sources to this query method." unless options[:sources]
+    raise "You must supply :sources to this query method." unless options[:sources]
     response = index(options)
     #process_response(MasterMerchant::Stat, 'stats', response)
   end
