@@ -44,6 +44,7 @@ module MasterMerchant::Connection
         end
         map
       end
+      puts "#{url}?#{options.to_query}"
       "#{url}?#{options.to_query}"
     end
 
