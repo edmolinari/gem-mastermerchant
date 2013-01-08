@@ -12,7 +12,7 @@ class MasterMerchant::Merchant < MasterMerchant::Base
   end
 
   def self.from_data_sources(options={})
-    url = ":site_url/merchants.json/from_data_sources.json"
+    url = ":site_url/merchants/from_data_sources.json"
     set_config_from_options(options)
     _typhoeus_options = {
       :headers => {'content-type' => 'application/json'},
@@ -21,7 +21,7 @@ class MasterMerchant::Merchant < MasterMerchant::Base
   end
 
   def self.grant_user(options={})
-    url = ":site_url/merchants.json/grant_user.json"
+    url = ":site_url/merchants/grant_user.json"
     set_config_from_options(options)
     _typhoeus_options = {
       :headers => {'content-type' => 'application/json'},
