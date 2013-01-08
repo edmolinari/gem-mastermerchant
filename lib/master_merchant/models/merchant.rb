@@ -11,6 +11,33 @@ class MasterMerchant::Merchant < MasterMerchant::Base
     process_url(url, options)
   end
 
+  def self.from_data_sources(options={})
+    url = ":site_url/merchants.json/from_data_sources.json"
+    set_config_from_options(options)
+    _typhoeus_options = {
+      :headers => {'content-type' => 'application/json'},
+    }.merge(config.typhoeus_options)
+    Typhoeus::Request.get process_url(url, options), _typhoeus_options
+  end
+
+  def self.grant_user(options={})
+    url = ":site_url/merchants.json/grant_user.json"
+    set_config_from_options(options)
+    _typhoeus_options = {
+      :headers => {'content-type' => 'application/json'},
+    }.merge(config.typhoeus_options)
+    Typhoeus::Request.get process_url(url, options), _typhoeus_options
+  end
+
+  def self.locate_identity(options={})
+    url = ":site_url/merchants/#{options[:id]}/locate_identity.json"
+    set_config_from_options(options)
+    _typhoeus_options = {
+      :headers => {'content-type' => 'application/json'},
+    }.merge(config.typhoeus_options)
+    Typhoeus::Request.get process_url(url, options), _typhoeus_options
+  end
+
   def self.model_name
     'merchant'
   end
