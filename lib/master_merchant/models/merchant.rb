@@ -25,6 +25,9 @@ class MasterMerchant::Merchant < MasterMerchant::Base
   def verification_questions
     (_v = super) && OpenStruct.new(_v) rescue nil
   end
+  def business_owners
+    (_v = super) && OpenStruct.new(_v) rescue nil
+  end
 
   def created_at
     Time.zone.parse(super)
