@@ -4,6 +4,8 @@ class MasterMerchant::Merchant < MasterMerchant::Base
   def self.collection_url(options={})
     if options[:sources]
       uri = 'merchants/from_data_sources'
+    elsif options[:credentials]
+      uri = 'merchants/check_credentials'
     else
       uri = 'merchants'
     end
@@ -18,11 +20,12 @@ class MasterMerchant::Merchant < MasterMerchant::Base
 
   def from_data_sources(options={})
     raise "You must supply :sources to this query method." unless options[:sources]
-    response = index(options)
-    #process_response(MasterMerchant::Stat, 'stats', response)
+    index(options)
   end
 
   def check_credentials(options={})
+    raise "You must supply :credentials to this query method." unless options[:credentials]
+    index(options)
   end
 
   def locate_identity(options={})
